@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerador de Holerite Profissional</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+  <div class="container">
+    <div class="logo-container">
+      <img src="aw-tecnologia.png" alt="Logo AW Tecnologia" class="logo">
+    </div>
+    <h1>Gerador de Holerite</h1>
+
+    <!-- Navegação -->
+    <div class="tabs">
+      <button class="tab-button active" data-tab="mensal">Mensal</button>
+      <button class="tab-button" data-tab="ferias">Férias</button>
+      <button class="tab-button" data-tab="decimo">13º Salário</button>
+    </div>
+
+    <!-- Holerite Mensal -->
+    <form id="formMensal" class="tab-content active">
+      <h2>Holerite Mensal</h2>
+      <div class="formulario grid-form">
+        <label for="nomeMensal">Nome:</label>
+        <input type="text" id="nomeMensal" required>
+
+        <label for="cargoMensal">Cargo:</label>
+        <input type="text" id="cargoMensal" required>
+
+        <label for="empresaMensal">Empresa:</label>
+        <input type="text" id="empresaMensal" required>
+
+        <label for="mesMensal">Mês:</label>
+        <input type="number" id="mesMensal" min="1" max="12" required>
+
+        <label for="anoMensal">Ano:</label>
+        <input type="number" id="anoMensal" required>
+
+        <label for="salarioMensal">Salário Base (R$):</label>
+        <input type="number" id="salarioMensal" step="0.01" required>
+
+        <label for="horasExtrasMensal">Horas Extras (R$):</label>
+        <input type="number" id="horasExtrasMensal" step="0.01">
+
+        <label><input type="checkbox" id="adiantamentoMensal"> Adiantamento 40%</label>
+        <label for="adiantamentoValorMensal">Adiantamento Manual:</label>
+        <input type="number" id="adiantamentoValorMensal" step="0.01">
+
+        <label><input type="checkbox" id="salarioFamiliaMensal"> Salário Família</label>
+        <label for="dependentesMensal">Dependentes:</label>
+        <input type="number" id="dependentesMensal" value="0">
+
+        <label><input type="checkbox" id="vtMensal"> Vale Transporte (até 6%)</label>
+        <input type="number" id="vtValorMensal" step="0.01" placeholder="Custo total VT" disabled>
+
+        <label><input type="checkbox" id="vrMensal"> Vale Refeição</label>
+        <input type="number" id="vrValorMensal" step="0.01" placeholder="Valor VR" disabled>
+
+        <label for="planoSaudeMensal">Plano de Saúde (R$):</label>
+        <input type="number" id="planoSaudeMensal" step="0.01">
+
+        <label for="seguroVidaMensal">Seguro de Vida (R$):</label>
+        <input type="number" id="seguroVidaMensal" step="0.01">
+
+        <label for="contribuicaoMensal">Contribuição Negocial (R$):</label>
+        <input type="number" id="contribuicaoMensal" step="0.01">
+
+        <div class="form-buttons">
+          <button type="submit" class="btn-primario">Gerar Holerite</button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Holerite Férias -->
+    <form id="formFerias" class="tab-content">
+      <h2>Holerite de Férias</h2>
+      <div class="formulario grid-form">
+        <label for="nomeFerias">Nome:</label>
+        <input type="text" id="nomeFerias" required>
+
+        <label for="cargoFerias">Cargo:</label>
+        <input type="text" id="cargoFerias" required>
+
+        <label for="empresaFerias">Empresa:</label>
+        <input type="text" id="empresaFerias" required>
+
+        <label for="mesFerias">Mês:</label>
+        <input type="number" id="mesFerias" required>
+
+        <label for="anoFerias">Ano:</label>
+        <input type="number" id="anoFerias" required>
+
+        <label for="salarioFerias">Salário Base (R$):</label>
+        <input type="number" id="salarioFerias" step="0.01" required>
+
+        <p>1/3 Constitucional será calculado automaticamente.</p>
+
+        <div class="form-buttons">
+          <button type="submit" class="btn-primario">Gerar Holerite de Férias</button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Holerite 13º -->
+    <form id="formDecimo" class="tab-content">
+      <h2>13º Salário</h2>
+      <div class="formulario grid-form">
+        <label for="nomeDecimo">Nome:</label>
+        <input type="text" id="nomeDecimo" required>
+
+        <label for="cargoDecimo">Cargo:</label>
+        <input type="text" id="cargoDecimo" required>
+
+        <label for="empresaDecimo">Empresa:</label>
+        <input type="text" id="empresaDecimo" required>
+
+        <label for="anoDecimo">Ano:</label>
+        <input type="number" id="anoDecimo" required>
+
+        <label for="salarioDecimo">Salário Base (R$):</label>
+        <input type="number" id="salarioDecimo" step="0.01" required>
+
+        <div class="form-buttons">
+          <button type="submit" class="btn-primario">Gerar 13º</button>
+        </div>
+      </div>
+    </form>
+
+    <div id="holeriteOutput" class="holerite-output hidden"></div>
+    <div class="form-buttons">
+      <button type="button" id="btnExportarPDF" class="btn-secundario hidden">Exportar PDF</button>
+    </div>
+  </div>
+</body>
+</html>
