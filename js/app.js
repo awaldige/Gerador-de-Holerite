@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const tabs = document.querySelectorAll(".tab-button");
   const contents = document.querySelectorAll(".tab-content");
 
-  // Troca de tabs
   tabs.forEach(tab => {
     tab.addEventListener("click", () => {
       tabs.forEach(t => t.classList.remove("active"));
@@ -12,7 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Habilitar/Desabilitar inputs
   function toggleInput(checkboxId, inputId) {
     const checkbox = document.getElementById(checkboxId);
     const input = document.getElementById(inputId);
@@ -24,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
   toggleInput("vrMensal", "vrValorMensal");
   toggleInput("vtMensal", "vtValorMensal");
 
-  function gerarHolerite(e, tipo) {
+  async function gerarHolerite(e, tipo) {
     e.preventDefault();
     const prefix = tipo === "mensal" ? "Mensal" : tipo === "ferias" ? "Ferias" : "Decimo";
 
@@ -50,7 +48,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let proventos = [];
     let descontos = [];
 
-    // Cálculos (mesmo que já tinha)
     if (tipo === "mensal") {
       let salarioTotal = salario + horasExtras;
       proventos.push({ nome: "Salário Base", valor: salario });
@@ -64,7 +61,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       let adiantamento = adiantamentoCheck ? salario * 0.4 : adiantamentoManual;
       if (adiantamento > 0) descontos.push({ nome: "Adiantamento", valor: adiantamento });
-
       if (vtCheck && vtValor > 0) descontos.push({ nome: "Vale Transporte", valor: Math.min(vtValor, salario * 0.06) });
       if (vrCheck && vrValor > 0) descontos.push({ nome: "Vale Refeição", valor: Math.min(vrValor, vrValor * 0.2) });
 
@@ -94,56 +90,62 @@ document.addEventListener("DOMContentLoaded", () => {
     const liquido = totalProventos - totalDescontos;
 
     const output = document.getElementById("holeriteOutput");
-    output.innerHTML = `
-      ${[1,2].map(() => `
-        <div class="holerite-via">
-          <img src="aw-tecnologia.png" class="logo-pdf">
-          <h2>Holerite - ${tipo.charAt(0).toUpperCase() + tipo.slice(1)}</h2>
-          <div class="info-funcionario">
-            <p><strong>Nome:</strong> ${nome}</p>
-            <p><strong>Cargo:</strong> ${cargo}</p>
-            <p><strong>Empresa:</strong> ${empresa}</p>
-            ${mes ? `<p><strong>Mês:</strong> ${mes}</p>` : ""}
-            <p><strong>Ano:</strong> ${ano}</p>
-          </div>
-          <table>
-            <thead><tr><th>Proventos</th><th>Valor (R$)</th></tr></thead>
-            <tbody>${proventos.map(p=>`<tr><td>${p.nome}</td><td style="text-align:right;">${p.valor.toFixed(2)}</td></tr>`).join("")}</tbody>
-          </table>
-          <table>
-            <thead><tr><th>Descontos</th><th>Valor (R$)</th></tr></thead>
-            <tbody>${descontos.map(d=>`<tr><td>${d.nome}</td><td style="text-align:right;">${d.valor.toFixed(2)}</td></tr>`).join("")}</tbody>
-          </table>
-          <div class="liquido">Líquido a Receber: R$ ${liquido.toFixed(2)}</div>
-          <hr class="hr-tracejada">
-          <div class="assinatura">
-            <div>Assinatura Funcionário</div>
-            <div>Assinatura RH</div>
-          </div>
+    output.innerHTML = "";
+    for(let i=1;i<=2;i++){ // 2 vias
+      const div = document.createElement("div");
+      div.classList.add("holerite-via");
+      div.innerHTML = `
+        <img src="aw-tecnologia.png" class="logo-pdf">
+        <h2>Holerite - ${tipo.charAt(0).toUpperCase() + tipo.slice(1)}</h2>
+        <div class="info-funcionario">
+          <p><strong>Nome:</strong> ${nome}</p>
+          <p><strong>Cargo:</strong> ${cargo}</p>
+          <p><strong>Empresa:</strong> ${empresa}</p>
+          ${mes ? `<p><strong>Mês:</strong> ${mes}</p>` : ""}
+          <p><strong>Ano:</strong> ${ano}</p>
         </div>
-      `).join("")}
-    `;
+        <table>
+          <thead><tr><th>Proventos</th><th>Valor (R$)</th></tr></thead>
+          <tbody>${proventos.map(p=>`<tr><td>${p.nome}</td><td style="text-align:right;">${p.valor.toFixed(2)}</td></tr>`).join("")}</tbody>
+        </table>
+        <table>
+          <thead><tr><th>Descontos</th><th>Valor (R$)</th></tr></thead>
+          <tbody>${descontos.map(d=>`<tr><td>${d.nome}</td><td style="text-align:right;">${d.valor.toFixed(2)}</td></tr>`).join("")}</tbody>
+        </table>
+        <div class="liquido">Líquido a Receber: R$ ${liquido.toFixed(2)}</div>
+        <hr class="hr-tracejada">
+        <div class="assinatura">
+          <div>Assinatura Funcionário</div>
+          <div>Assinatura RH</div>
+        </div>
+      `;
+      output.appendChild(div);
+    }
 
     output.classList.remove("hidden");
     document.getElementById("btnExportarPDF").classList.remove("hidden");
 
-    // Exportar PDF com margens, centralização e páginas separadas
+    // Exportar PDF com múltiplas páginas automáticas
     document.getElementById("btnExportarPDF").onclick = async () => {
-      const vias = Array.from(output.querySelectorAll(".holerite-via"));
       const pdf = new jspdf.jsPDF("p", "mm", "a4");
+      const pdfWidth = pdf.internal.pageSize.getWidth() - 20;
       let first = true;
 
-      for (const via of vias) {
+      for(const via of output.querySelectorAll(".holerite-via")){
         const canvas = await html2canvas(via, { scale: 3, useCORS: true });
         const imgData = canvas.toDataURL("image/png");
-        const pdfWidth = pdf.internal.pageSize.getWidth() - 20; // margens 10mm
-        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-        const x = 10; // margem esquerda
-        const y = 10; // margem topo
+        let pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+        let remainingHeight = pdfHeight;
+        let position = 0;
 
-        if (!first) pdf.addPage();
-        pdf.addImage(imgData, "PNG", x, y, pdfWidth, pdfHeight);
-        first = false;
+        while(remainingHeight > 0){
+          if(!first) pdf.addPage();
+          const h = Math.min(remainingHeight, pdf.internal.pageSize.getHeight() - 20);
+          pdf.addImage(imgData, "PNG", 10, 10, pdfWidth, h, undefined, 'FAST');
+          remainingHeight -= h;
+          position += h;
+          first = false;
+        }
       }
       pdf.save(`holerite-${tipo}.pdf`);
     };
