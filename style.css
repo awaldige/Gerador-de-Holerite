@@ -277,12 +277,7 @@ button:hover {
   border-bottom: none;
 }
 
-/* Linha separadora */
-.hr-tracejada {
-  border: none;
-  border-top: 4px dashed #0d6efd;
-  margin: 20px 0;
-}
+
 
 /* Assinaturas */
 .holerite-via .assinatura {
@@ -348,3 +343,4 @@ button:hover {
     width: 100%;
   }
 }
+
