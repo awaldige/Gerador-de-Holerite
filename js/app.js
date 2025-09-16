@@ -122,47 +122,51 @@ document.addEventListener("DOMContentLoaded", () => {
     const totalDescontos = descontos.reduce((a, b) => a + b.valor, 0);
     const liquido = totalProventos - totalDescontos;
 
-    // --- HTML HOLERITE ---
+    // === HTML HOLERITE COM CSS INTEGRADO ===
     let html = `
-      <div class="holerite-via" style="display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;">
+      <style>
+        .holerite-via { display:flex; flex-wrap:wrap; gap:20px; justify-content:space-between; font-family:Arial,sans-serif; }
+        .holerite-via > div { flex:1 1 48%; min-width:250px; padding:20px; border:2px solid #0d6efd; border-radius:10px; background:#f9f9f9; box-sizing:border-box; box-shadow:0 5px 15px rgba(0,0,0,0.08);}
+        .holerite-via img { display:block; margin:0 auto 15px; max-width:120px; }
+        .holerite-via h2 { text-align:center; color:#0d6efd; font-size:22px; font-weight:700; margin-bottom:20px; letter-spacing:1px; }
+        .holerite-via .info-funcionario { display:flex; justify-content:space-between; flex-wrap:wrap; background:#e7f0ff; padding:10px; border-radius:5px; margin-bottom:15px; }
+        .holerite-via .info-funcionario p { margin:5px 0; font-size:12px; }
+        .holerite-via table { width:100%; border-collapse:collapse; margin-bottom:10px; font-size:12px; }
+        .holerite-via th, .holerite-via td { padding:8px; border-bottom:1px solid #e0e0e0; }
+        .holerite-via th { font-weight:600; text-align:center; }
+        .holerite-via td:last-child { text-align:right; }
+        .holerite-via table:first-of-type th { background:#28a745; color:#fff; }
+        .holerite-via table:last-of-type th { background:#dc3545; color:#fff; }
+        .holerite-via .liquido { font-size:16px; text-align:center; font-weight:700; color:#0d6efd; padding:10px 0; margin-top:10px; background:#cfe0ff; border-radius:5px; }
+        .holerite-via hr { border:none; border-top:2px dashed #0d6efd; margin:20px 0; }
+        .holerite-via .assinatura { display:flex; justify-content:space-between; font-size:12px; margin-top:15px; }
+        .holerite-via .assinatura div { width:45%; text-align:center; border-top:1px solid #333; padding-top:5px; font-weight:600; }
+      </style>
+      <div class="holerite-via">
         ${[1,2].map(via => `
-          <div style="flex:1 1 48%; min-width:250px; padding:20px; border:2px solid #0d6efd; border-radius:10px; background:#f9f9f9; box-sizing:border-box;">
-            <img src="aw-tecnologia.png" style="display:block;margin:0 auto 15px;max-width:120px;">
-            <h2 style="text-align:center;color:#0d6efd;">Holerite - ${tipo.charAt(0).toUpperCase() + tipo.slice(1)}</h2>
-            <div style="background:#e7f0ff;padding:10px;border-radius:5px;margin-bottom:15px;">
+          <div>
+            <img src="aw-tecnologia.png">
+            <h2>Holerite - ${tipo.charAt(0).toUpperCase() + tipo.slice(1)}</h2>
+            <div class="info-funcionario">
               <p><strong>Nome:</strong> ${nome}</p>
               <p><strong>Cargo:</strong> ${cargo}</p>
               <p><strong>Empresa:</strong> ${empresa}</p>
               ${mes ? `<p><strong>Mês:</strong> ${mes}</p>` : ""}
               <p><strong>Ano:</strong> ${ano}</p>
             </div>
-            <table style="width:100%;border-collapse:collapse;margin-bottom:10px;">
-              <thead>
-                <tr style="background:#28a745;color:#fff;">
-                  <th>Proventos</th><th>Valor (R$)</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${proventos.map(p => `<tr><td>${p.nome}</td><td style="text-align:right;">${p.valor.toFixed(2)}</td></tr>`).join("")}
-              </tbody>
+            <table>
+              <thead><tr><th>Proventos</th><th>R$</th></tr></thead>
+              <tbody>${proventos.map(p => `<tr><td>${p.nome}</td><td>${p.valor.toFixed(2)}</td></tr>`).join("")}</tbody>
             </table>
-            <table style="width:100%;border-collapse:collapse;margin-bottom:10px;">
-              <thead>
-                <tr style="background:#dc3545;color:#fff;">
-                  <th>Descontos</th><th>Valor (R$)</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${descontos.map(d => `<tr><td>${d.nome}</td><td style="text-align:right;">${d.valor.toFixed(2)}</td></tr>`).join("")}
-              </tbody>
+            <table>
+              <thead><tr><th>Descontos</th><th>R$</th></tr></thead>
+              <tbody>${descontos.map(d => `<tr><td>${d.nome}</td><td>${d.valor.toFixed(2)}</td></tr>`).join("")}</tbody>
             </table>
-            <div style="background:#cfe0ff;padding:10px;border-radius:5px;text-align:center;font-weight:700;">
-              Líquido a Receber: R$ ${liquido.toFixed(2)}
-            </div>
-            <hr style="border:none;border-top:2px dashed #0d6efd;margin:20px 0;">
-            <div style="display:flex;justify-content:space-between;font-size:12px;">
-              <div style="width:45%;text-align:center;border-top:1px solid #333;padding-top:5px;">Assinatura Funcionário</div>
-              <div style="width:45%;text-align:center;border-top:1px solid #333;padding-top:5px;">Assinatura RH</div>
+            <div class="liquido">Líquido a Receber: R$ ${liquido.toFixed(2)}</div>
+            <hr>
+            <div class="assinatura">
+              <div>Assinatura Funcionário</div>
+              <div>Assinatura RH</div>
             </div>
           </div>
         `).join('')}
@@ -179,7 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("formFerias").addEventListener("submit", (e) => gerarHolerite(e, "ferias"));
   document.getElementById("formDecimo").addEventListener("submit", (e) => gerarHolerite(e, "decimo"));
 
-  // === BOTÃO PDF FIXO ===
+  // === EXPORTAR PDF ===
   btnPDF.addEventListener("click", () => {
     if (output.innerHTML.trim() === "") {
       alert("Gere o holerite primeiro!");
@@ -193,5 +197,4 @@ document.addEventListener("DOMContentLoaded", () => {
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     }).from(output).save();
   });
-
 });
