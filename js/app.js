@@ -116,66 +116,67 @@ document.addEventListener("DOMContentLoaded", () => {
     const totalDescontos = descontos.reduce((a, b) => a + b.valor, 0);
     const liquido = totalProventos - totalDescontos;
 
-    // HTML Holerite (responsivo)
+    // HTML Holerite
     const output = document.getElementById("holeriteOutput");
     output.innerHTML = `
-      <div class="holerite-via">
-        ${[1,2].map(() => `
-          <div>
-            <img src="aw-tecnologia.png" style="display:block;margin:0 auto 15px;max-width:120px;">
-            <h2 style="text-align:center;color:#0d6efd;">Holerite - ${tipo.charAt(0).toUpperCase() + tipo.slice(1)}</h2>
-            <div style="background:#e7f0ff;padding:10px;border-radius:5px;margin-bottom:15px;">
-              <p><strong>Nome:</strong> ${nome}</p>
-              <p><strong>Cargo:</strong> ${cargo}</p>
-              <p><strong>Empresa:</strong> ${empresa}</p>
-              ${mes ? `<p><strong>Mês:</strong> ${mes}</p>` : ""}
-              <p><strong>Ano:</strong> ${ano}</p>
-            </div>
-            <table style="width:100%;border-collapse:collapse;margin-bottom:15px;">
-              <thead>
-                <tr style="background:#28a745;color:#fff;">
-                  <th>Proventos</th><th>Valor (R$)</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${proventos.map(p => `<tr><td>${p.nome}</td><td style="text-align:right;">${p.valor.toFixed(2)}</td></tr>`).join("")}
-              </tbody>
-            </table>
-            <table style="width:100%;border-collapse:collapse;margin-bottom:15px;">
-              <thead>
-                <tr style="background:#dc3545;color:#fff;">
-                  <th>Descontos</th><th>Valor (R$)</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${descontos.map(d => `<tr><td>${d.nome}</td><td style="text-align:right;">${d.valor.toFixed(2)}</td></tr>`).join("")}
-              </tbody>
-            </table>
-            <div style="background:#cfe0ff;padding:10px;border-radius:5px;text-align:center;font-weight:700;">
-              Líquido a Receber: R$ ${liquido.toFixed(2)}
-            </div>
-            <hr style="border:none;border-top:2px dashed #0d6efd;margin:20px 0;">
-            <div style="display:flex;justify-content:space-between;font-size:12px;">
-              <div style="width:45%;text-align:center;border-top:1px solid #333;padding-top:5px;">Assinatura Funcionário</div>
-              <div style="width:45%;text-align:center;border-top:1px solid #333;padding-top:5px;">Assinatura RH</div>
-            </div>
+      ${[1,2].map(() => `
+        <div class="holerite-via">
+          <img src="aw-tecnologia.png" class="logo-pdf">
+          <h2>Holerite - ${tipo.charAt(0).toUpperCase() + tipo.slice(1)}</h2>
+          <div class="info-funcionario">
+            <p><strong>Nome:</strong> ${nome}</p>
+            <p><strong>Cargo:</strong> ${cargo}</p>
+            <p><strong>Empresa:</strong> ${empresa}</p>
+            ${mes ? `<p><strong>Mês:</strong> ${mes}</p>` : ""}
+            <p><strong>Ano:</strong> ${ano}</p>
           </div>
-        `).join("")}
-      </div>
+          <table>
+            <thead>
+              <tr><th>Proventos</th><th>Valor (R$)</th></tr>
+            </thead>
+            <tbody>
+              ${proventos.map(p => `<tr><td>${p.nome}</td><td style="text-align:right;">${p.valor.toFixed(2)}</td></tr>`).join("")}
+            </tbody>
+          </table>
+          <table>
+            <thead>
+              <tr><th>Descontos</th><th>Valor (R$)</th></tr>
+            </thead>
+            <tbody>
+              ${descontos.map(d => `<tr><td>${d.nome}</td><td style="text-align:right;">${d.valor.toFixed(2)}</td></tr>`).join("")}
+            </tbody>
+          </table>
+          <div class="liquido">Líquido a Receber: R$ ${liquido.toFixed(2)}</div>
+          <hr class="hr-tracejada">
+          <div class="assinatura">
+            <div>Assinatura Funcionário</div>
+            <div>Assinatura RH</div>
+          </div>
+        </div>
+      `).join("")}
     `;
     output.classList.remove("hidden");
     document.getElementById("btnExportarPDF").classList.remove("hidden");
 
-    // Exportar PDF
+    // Exportar PDF com cada via em página separada
     const btnPDF = document.getElementById("btnExportarPDF");
     btnPDF.onclick = () => {
-      html2canvas(output, { scale: 2, useCORS: true, scrollY: -window.scrollY }).then(canvas => {
-        const imgData = canvas.toDataURL("image/png");
-        const pdf = new jspdf.jsPDF("p", "mm", "a4");
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-        pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-        pdf.save(`holerite-${tipo}.pdf`);
+      const vias = output.querySelectorAll(".holerite-via");
+      const pdf = new jspdf.jsPDF("p", "mm", "a4");
+      let first = true;
+
+      vias.forEach((via, index) => {
+        html2canvas(via, { scale: 2, useCORS: true, scrollY: -window.scrollY }).then(canvas => {
+          const imgData = canvas.toDataURL("image/png");
+          const pdfWidth = pdf.internal.pageSize.getWidth();
+          const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+          if (!first) pdf.addPage();
+          pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+          first = false;
+
+          if (index === vias.length - 1) pdf.save(`holerite-${tipo}.pdf`);
+        });
       });
     };
   }
