@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // === TABS ===
   const tabs = document.querySelectorAll(".tab-button");
   const contents = document.querySelectorAll(".tab-content");
 
@@ -11,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // === FUNÇÃO PARA HABILITAR/DESABILITAR INPUTS ===
   function toggleInput(checkboxId, inputId) {
     const checkbox = document.getElementById(checkboxId);
     const input = document.getElementById(inputId);
@@ -23,9 +25,12 @@ document.addEventListener("DOMContentLoaded", () => {
   toggleInput("vrMensal", "vrValorMensal");
   toggleInput("vtMensal", "vtValorMensal");
 
+  // === FUNÇÃO PARA GERAR HOLERITE ===
   function gerarHolerite(e, tipo) {
     e.preventDefault();
+
     const prefix = tipo === "mensal" ? "Mensal" : tipo === "ferias" ? "Ferias" : "Decimo";
+
     const nome = document.getElementById("nome" + prefix).value;
     const cargo = document.getElementById("cargo" + prefix).value;
     const empresa = document.getElementById("empresa" + prefix).value;
@@ -72,6 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
         descontos.push({ nome: "Vale Refeição", valor: vrDesconto });
       }
 
+      // INSS
       let inss = 0;
       if (salario <= 1751.81) inss = salario * 0.08;
       else if (salario <= 2919.72) inss = salario * 0.09;
@@ -79,6 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
       else inss = 5839.45 * 0.11;
       descontos.push({ nome: "INSS", valor: inss });
 
+      // IRRF
       let irBase = salario - inss - (dependentes * 189.59);
       let ir = 0;
       if (irBase <= 1903.98) ir = 0;
@@ -95,7 +102,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const umTerco = salario / 3;
       proventos.push({ nome: "Salário Base", valor: salario });
       proventos.push({ nome: "1/3 Constitucional", valor: umTerco });
-
       let inss = salario * 0.11;
       descontos.push({ nome: "INSS", valor: inss });
       let ir = (salario - inss) * 0.075;
@@ -112,21 +118,21 @@ document.addEventListener("DOMContentLoaded", () => {
     const totalDescontos = descontos.reduce((a, b) => a + b.valor, 0);
     const liquido = totalProventos - totalDescontos;
 
-    // HTML do Holerite com Segunda Via
+    // HTML do Holerite com 2 vias responsivas
     let html = `
-      <div class="holerite-via" style="display:flex;gap:20px;justify-content:space-between;">
+      <div class="holerite-via" style="display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;">
         ${[1,2].map(via => `
-          <div style="width:48%;padding:20px;border:2px solid #0d6efd;border-radius:10px;background:#f9f9f9;">
+          <div style="flex:1 1 48%; min-width:250px; padding:20px; border:2px solid #0d6efd; border-radius:10px; background:#f9f9f9; box-sizing:border-box;">
             <img src="aw-tecnologia.png" style="display:block;margin:0 auto 15px;max-width:120px;">
             <h2 style="text-align:center;color:#0d6efd;">Holerite - ${tipo.charAt(0).toUpperCase() + tipo.slice(1)}</h2>
-            <div style="background:#e7f0ff;padding:10px;border-radius:5px;margin-bottom:20px;">
+            <div style="background:#e7f0ff;padding:10px;border-radius:5px;margin-bottom:15px;">
               <p><strong>Nome:</strong> ${nome}</p>
               <p><strong>Cargo:</strong> ${cargo}</p>
               <p><strong>Empresa:</strong> ${empresa}</p>
               ${mes ? `<p><strong>Mês:</strong> ${mes}</p>` : ""}
               <p><strong>Ano:</strong> ${ano}</p>
             </div>
-            <table style="width:100%;border-collapse:collapse;margin-bottom:15px;">
+            <table style="width:100%;border-collapse:collapse;margin-bottom:10px;">
               <thead>
                 <tr style="background:#28a745;color:#fff;">
                   <th>Proventos</th><th>Valor (R$)</th>
@@ -136,7 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 ${proventos.map(p => `<tr><td>${p.nome}</td><td style="text-align:right;">${p.valor.toFixed(2)}</td></tr>`).join("")}
               </tbody>
             </table>
-            <table style="width:100%;border-collapse:collapse;margin-bottom:15px;">
+            <table style="width:100%;border-collapse:collapse;margin-bottom:10px;">
               <thead>
                 <tr style="background:#dc3545;color:#fff;">
                   <th>Descontos</th><th>Valor (R$)</th>
@@ -149,10 +155,10 @@ document.addEventListener("DOMContentLoaded", () => {
             <div style="background:#cfe0ff;padding:10px;border-radius:5px;text-align:center;font-weight:700;">
               Líquido a Receber: R$ ${liquido.toFixed(2)}
             </div>
-            <hr style="border:none;border-top:2px dashed #0d6efd;margin:20px 0;">
-            <div style="display:flex;justify-content:space-between;font-size:12px;">
-              <div style="width:45%;text-align:center;border-top:1px solid #333;padding-top:5px;">Assinatura Funcionário</div>
-              <div style="width:45%;text-align:center;border-top:1px solid #333;padding-top:5px;">Assinatura RH</div>
+            <hr style="border:none;border-top:2px dashed #0d6efd;margin:15px 0;">
+            <div style="display:flex;flex-wrap:wrap;justify-content:space-between;font-size:12px;">
+              <div style="flex:1 1 45%;text-align:center;border-top:1px solid #333;padding-top:5px;">Assinatura Funcionário</div>
+              <div style="flex:1 1 45%;text-align:center;border-top:1px solid #333;padding-top:5px;">Assinatura RH</div>
             </div>
           </div>
         `).join('')}
@@ -163,21 +169,23 @@ document.addEventListener("DOMContentLoaded", () => {
     output.innerHTML = html;
     output.classList.remove("hidden");
 
+    // === EXPORTAR PARA PDF USANDO html2pdf ===
     const btnPDF = document.getElementById("btnExportarPDF");
     btnPDF.classList.remove("hidden");
     btnPDF.onclick = () => {
-      html2canvas(output, { scale: 2 }).then(canvas => {
-        const imgData = canvas.toDataURL("image/png");
-        const pdf = new jspdf.jsPDF("p", "mm", "a4");
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-        pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-        pdf.save(`holerite-${tipo}.pdf`);
-      });
+      html2pdf().set({
+        margin: 10,
+        filename: `holerite-${tipo}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true },
+           jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      }).from(output).save();
     };
   }
 
+  // === EVENTOS DE SUBMIT DOS FORMULÁRIOS ===
   document.getElementById("formMensal").addEventListener("submit", (e) => gerarHolerite(e, "mensal"));
   document.getElementById("formFerias").addEventListener("submit", (e) => gerarHolerite(e, "ferias"));
   document.getElementById("formDecimo").addEventListener("submit", (e) => gerarHolerite(e, "decimo"));
 });
+       
