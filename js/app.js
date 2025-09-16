@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const tabs = document.querySelectorAll(".tab-button");
   const contents = document.querySelectorAll(".tab-content");
 
-  // Navegação entre abas
+  // Troca de tabs
   tabs.forEach(tab => {
     tab.addEventListener("click", () => {
       tabs.forEach(t => t.classList.remove("active"));
@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Função para habilitar/desabilitar inputs
+  // Habilitar/Desabilitar inputs
   function toggleInput(checkboxId, inputId) {
     const checkbox = document.getElementById(checkboxId);
     const input = document.getElementById(inputId);
@@ -21,14 +21,15 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!checkbox.checked) input.value = "";
     });
   }
-
   toggleInput("vrMensal", "vrValorMensal");
   toggleInput("vtMensal", "vtValorMensal");
 
-  // Função principal de geração de holerite
+  // Função principal de gerar holerite
   function gerarHolerite(e, tipo) {
     e.preventDefault();
     const prefix = tipo === "mensal" ? "Mensal" : tipo === "ferias" ? "Ferias" : "Decimo";
+
+    // Captura inputs
     const nome = document.getElementById("nome" + prefix).value;
     const cargo = document.getElementById("cargo" + prefix).value;
     const empresa = document.getElementById("empresa" + prefix).value;
@@ -51,6 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let proventos = [];
     let descontos = [];
 
+    // Cálculos
     if (tipo === "mensal") {
       let salarioTotal = salario + horasExtras;
       proventos.push({ nome: "Salário Base", valor: salario });
@@ -98,7 +100,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const umTerco = salario / 3;
       proventos.push({ nome: "Salário Base", valor: salario });
       proventos.push({ nome: "1/3 Constitucional", valor: umTerco });
-
       let inss = salario * 0.11;
       descontos.push({ nome: "INSS", valor: inss });
       let ir = (salario - inss) * 0.075;
@@ -115,14 +116,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const totalDescontos = descontos.reduce((a, b) => a + b.valor, 0);
     const liquido = totalProventos - totalDescontos;
 
-    // HTML do Holerite com Segunda Via
-    let html = `
-      <div class="holerite-via" style="display:flex;gap:20px;justify-content:space-between;">
-        ${[1,2].map(via => `
-          <div style="width:48%;padding:20px;border:2px solid #0d6efd;border-radius:10px;background:#f9f9f9;">
+    // HTML Holerite (responsivo)
+    const output = document.getElementById("holeriteOutput");
+    output.innerHTML = `
+      <div class="holerite-via">
+        ${[1,2].map(() => `
+          <div>
             <img src="aw-tecnologia.png" style="display:block;margin:0 auto 15px;max-width:120px;">
             <h2 style="text-align:center;color:#0d6efd;">Holerite - ${tipo.charAt(0).toUpperCase() + tipo.slice(1)}</h2>
-            <div style="background:#e7f0ff;padding:10px;border-radius:5px;margin-bottom:20px;">
+            <div style="background:#e7f0ff;padding:10px;border-radius:5px;margin-bottom:15px;">
               <p><strong>Nome:</strong> ${nome}</p>
               <p><strong>Cargo:</strong> ${cargo}</p>
               <p><strong>Empresa:</strong> ${empresa}</p>
@@ -158,40 +160,27 @@ document.addEventListener("DOMContentLoaded", () => {
               <div style="width:45%;text-align:center;border-top:1px solid #333;padding-top:5px;">Assinatura RH</div>
             </div>
           </div>
-        `).join('')}
+        `).join("")}
       </div>
     `;
-
-    const output = document.getElementById("holeriteOutput");
-    output.innerHTML = html;
     output.classList.remove("hidden");
+    document.getElementById("btnExportarPDF").classList.remove("hidden");
 
+    // Exportar PDF
     const btnPDF = document.getElementById("btnExportarPDF");
-    btnPDF.classList.remove("hidden");
-
     btnPDF.onclick = () => {
-      const vias = output.querySelectorAll(".holerite-via > div");
-      const pdf = new jspdf.jsPDF("p", "mm", "a4");
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-
-      const renderVia = (via, isLast) => {
-        return html2canvas(via, { scale: 2, useCORS: true }).then(canvas => {
-          const imgData = canvas.toDataURL("image/png");
-          const canvasHeight = (canvas.height * pdfWidth) / canvas.width;
-          pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, canvasHeight);
-          if (!isLast) pdf.addPage();
-        });
-      };
-
-      const promises = Array.from(vias).map((via, i) => renderVia(via, i === vias.length - 1));
-
-      Promise.all(promises).then(() => {
+      html2canvas(output, { scale: 2, useCORS: true, scrollY: -window.scrollY }).then(canvas => {
+        const imgData = canvas.toDataURL("image/png");
+        const pdf = new jspdf.jsPDF("p", "mm", "a4");
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+        pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
         pdf.save(`holerite-${tipo}.pdf`);
       });
     };
   }
 
-  // Eventos de submit
+  // Submissão dos formulários
   document.getElementById("formMensal").addEventListener("submit", (e) => gerarHolerite(e, "mensal"));
   document.getElementById("formFerias").addEventListener("submit", (e) => gerarHolerite(e, "ferias"));
   document.getElementById("formDecimo").addEventListener("submit", (e) => gerarHolerite(e, "decimo"));
