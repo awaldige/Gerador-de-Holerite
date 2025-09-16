@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // === FUNÇÃO PARA HABILITAR/DESABILITAR INPUTS ===
+  // === HABILITAR/DESABILITAR INPUTS ===
   function toggleInput(checkboxId, inputId) {
     const checkbox = document.getElementById(checkboxId);
     const input = document.getElementById(inputId);
@@ -25,7 +25,10 @@ document.addEventListener("DOMContentLoaded", () => {
   toggleInput("vrMensal", "vrValorMensal");
   toggleInput("vtMensal", "vtValorMensal");
 
-  // === FUNÇÃO PARA GERAR HOLERITE ===
+  const output = document.getElementById("holeriteOutput");
+  const btnPDF = document.getElementById("btnExportarPDF");
+
+  // === FUNÇÃO DE GERAR HOLERITE ===
   function gerarHolerite(e, tipo) {
     e.preventDefault();
 
@@ -53,6 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let proventos = [];
     let descontos = [];
 
+    // --- CÁLCULOS ---
     if (tipo === "mensal") {
       let salarioTotal = salario + horasExtras;
       proventos.push({ nome: "Salário Base", valor: salario });
@@ -77,7 +81,6 @@ document.addEventListener("DOMContentLoaded", () => {
         descontos.push({ nome: "Vale Refeição", valor: vrDesconto });
       }
 
-      // INSS
       let inss = 0;
       if (salario <= 1751.81) inss = salario * 0.08;
       else if (salario <= 2919.72) inss = salario * 0.09;
@@ -85,7 +88,6 @@ document.addEventListener("DOMContentLoaded", () => {
       else inss = 5839.45 * 0.11;
       descontos.push({ nome: "INSS", valor: inss });
 
-      // IRRF
       let irBase = salario - inss - (dependentes * 189.59);
       let ir = 0;
       if (irBase <= 1903.98) ir = 0;
@@ -98,6 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (planoSaude > 0) descontos.push({ nome: "Plano de Saúde", valor: planoSaude });
       if (seguroVida > 0) descontos.push({ nome: "Seguro de Vida", valor: seguroVida });
       if (contribuicao > 0) descontos.push({ nome: "Contribuição Negocial", valor: contribuicao });
+
     } else if (tipo === "ferias") {
       const umTerco = salario / 3;
       proventos.push({ nome: "Salário Base", valor: salario });
@@ -106,6 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
       descontos.push({ nome: "INSS", valor: inss });
       let ir = (salario - inss) * 0.075;
       descontos.push({ nome: "IRRF", valor: ir });
+
     } else if (tipo === "decimo") {
       proventos.push({ nome: "Salário Base", valor: salario });
       let inss = salario * 0.11;
@@ -118,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const totalDescontos = descontos.reduce((a, b) => a + b.valor, 0);
     const liquido = totalProventos - totalDescontos;
 
-    // HTML do Holerite com 2 vias responsivas
+    // --- HTML HOLERITE ---
     let html = `
       <div class="holerite-via" style="display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;">
         ${[1,2].map(via => `
@@ -155,37 +159,39 @@ document.addEventListener("DOMContentLoaded", () => {
             <div style="background:#cfe0ff;padding:10px;border-radius:5px;text-align:center;font-weight:700;">
               Líquido a Receber: R$ ${liquido.toFixed(2)}
             </div>
-            <hr style="border:none;border-top:2px dashed #0d6efd;margin:15px 0;">
-            <div style="display:flex;flex-wrap:wrap;justify-content:space-between;font-size:12px;">
-              <div style="flex:1 1 45%;text-align:center;border-top:1px solid #333;padding-top:5px;">Assinatura Funcionário</div>
-              <div style="flex:1 1 45%;text-align:center;border-top:1px solid #333;padding-top:5px;">Assinatura RH</div>
+            <hr style="border:none;border-top:2px dashed #0d6efd;margin:20px 0;">
+            <div style="display:flex;justify-content:space-between;font-size:12px;">
+              <div style="width:45%;text-align:center;border-top:1px solid #333;padding-top:5px;">Assinatura Funcionário</div>
+              <div style="width:45%;text-align:center;border-top:1px solid #333;padding-top:5px;">Assinatura RH</div>
             </div>
           </div>
         `).join('')}
       </div>
     `;
 
-    const output = document.getElementById("holeriteOutput");
     output.innerHTML = html;
     output.classList.remove("hidden");
-
-    // === EXPORTAR PARA PDF USANDO html2pdf ===
-    const btnPDF = document.getElementById("btnExportarPDF");
     btnPDF.classList.remove("hidden");
-    btnPDF.onclick = () => {
-      html2pdf().set({
-        margin: 10,
-        filename: `holerite-${tipo}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true },
-           jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-      }).from(output).save();
-    };
   }
 
-  // === EVENTOS DE SUBMIT DOS FORMULÁRIOS ===
+  // === EVENTOS DE SUBMIT ===
   document.getElementById("formMensal").addEventListener("submit", (e) => gerarHolerite(e, "mensal"));
   document.getElementById("formFerias").addEventListener("submit", (e) => gerarHolerite(e, "ferias"));
   document.getElementById("formDecimo").addEventListener("submit", (e) => gerarHolerite(e, "decimo"));
+
+  // === BOTÃO PDF FIXO ===
+  btnPDF.addEventListener("click", () => {
+    if (output.innerHTML.trim() === "") {
+      alert("Gere o holerite primeiro!");
+      return;
+    }
+    html2pdf().set({
+      margin: 10,
+      filename: `holerite.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    }).from(output).save();
+  });
+
 });
-       
