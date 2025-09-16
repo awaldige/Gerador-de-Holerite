@@ -154,10 +154,14 @@ document.addEventListener("DOMContentLoaded", () => {
             <div style="background:#cfe0ff;padding:10px;border-radius:5px;text-align:center;font-weight:700;">
               Líquido a Receber: R$ ${liquido.toFixed(2)}
             </div>            
-            <div style="display:flex;justify-content:space-between;font-size:12px;">
-              <div style="width:45%;text-align:center;border-top:1px solid #333;padding-top:5px;">Assinatura Funcionário</div>
-              <div style="width:45%;text-align:center;border-top:1px solid #333;padding-top:5px;">Assinatura RH</div>
-            </div>
+           <div style="background:#cfe0ff;padding:10px;border-radius:5px;text-align:center;font-weight:700;margin-bottom:30px;">
+          Líquido a Receber: R$ ${liquido.toFixed(2)}
+         </div>
+        <div style="display:flex;justify-content:space-between;font-size:12px;margin-top:30px;">
+        <div style="width:45%;text-align:center;border-top:1px solid #333;padding-top:5px;">Assinatura Funcionário</div>
+        <div style="width:45%;text-align:center;border-top:1px solid #333;padding-top:5px;">Assinatura RH</div>
+        </div>
+
           </div>
         `).join("")}
       </div>
@@ -196,4 +200,5 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("formFerias").addEventListener("submit", (e) => gerarHolerite(e, "ferias"));
   document.getElementById("formDecimo").addEventListener("submit", (e) => gerarHolerite(e, "decimo"));
 });
+
 
