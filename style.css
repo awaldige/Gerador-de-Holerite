@@ -1,377 +1,112 @@
-/* =========================
-   Reset básico
-========================= */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: Arial, sans-serif;
-  background: #f4f6f8;
-  color: #333;
-  padding: 20px;
-}
-
-/* =========================
-   Container principal
-========================= */
-.container {
-  width: 100%;
+/* ===== FORMULÁRIOS ===== */
+form {
   max-width: 900px;
-  margin: 0 auto;
-  background: #fff;
+  margin: 20px auto;
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
-/* =========================
-   Logo
-========================= */
-.logo-container, .logo-holerite {
-  text-align: left;
-  margin-bottom: 15px;
-}
-
-.logo, .logo-pdf {
-  max-width: 120px;
-  height: auto;
-}
-
-/* =========================
-   Títulos
-========================= */
-h1, h2 {
+form h2 {
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+  color: #333;
+  font-weight: 600;
   text-align: center;
-  margin-bottom: 15px;
-  color: #0d6efd;
 }
 
-/* =========================
-   Formulários
-========================= */
+/* Grid */
 .grid-form {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 15px;
 }
 
-label {
-  font-weight: bold;
+/* Labels */
+form label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #444;
   margin-bottom: 5px;
   display: block;
 }
 
-input[type="text"], input[type="number"], input[type="checkbox"] {
+/* Inputs */
+form input,
+form select {
   width: 100%;
-  padding: 8px 10px;
-  border-radius: 5px;
+  padding: 10px 12px;
+  font-size: 0.95rem;
   border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: all 0.2s ease;
 }
 
-input[type="checkbox"] {
-  width: auto;
-  margin-right: 5px;
+form input:focus,
+form select:focus {
+  outline: none;
+  border-color: #0077ff;
+  box-shadow: 0 0 0 3px rgba(0,119,255,0.2);
+}
+
+/* Checkboxes estilizados */
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.checkbox-group input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #0077ff;
+  cursor: pointer;
 }
 
 /* Botões */
 .form-buttons {
-  grid-column: span 2;
+  display: flex;
+  justify-content: center;
   margin-top: 20px;
-  text-align: center;
+  gap: 15px;
 }
 
-button {
-  padding: 10px 25px;
+.btn-primario,
+.btn-secundario {
+  padding: 12px 20px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
+  font-weight: 600;
   cursor: pointer;
-  margin: 5px;
-  font-weight: bold;
-  transition: 0.3s;
-}
-
-button:hover {
-  opacity: 0.9;
+  transition: background 0.2s ease;
 }
 
 .btn-primario {
-  background-color: #0d6efd;
+  background: #0077ff;
   color: #fff;
+}
+
+.btn-primario:hover {
+  background: #005fcc;
 }
 
 .btn-secundario {
-  background-color: #6c757d;
+  background: #444;
   color: #fff;
 }
 
-/* Tabs */
-.tab-buttons {
-  text-align: center;
-  margin-bottom: 20px;
+.btn-secundario:hover {
+  background: #222;
 }
 
-.tab-button {
-  padding: 8px 20px;
-  border: none;
-  border-radius: 5px 5px 0 0;
-  cursor: pointer;
-  background-color: #e9ecef;
-  margin-right: 5px;
-  font-weight: bold;
-}
-
-.tab-button.active {
-  background-color: #0d6efd;
-  color: #fff;
-}
-
-.tab-content {
-  display: none;
-}
-
-.tab-content.active {
-  display: block;
-}
-
-/* =========================
-   Holerite Moderno PDF
-========================= */
-.holerite-output, .holerite-via {
-  margin-top: 20px;
-  padding: 20px;
-  border: 2px solid #0d6efd;
-  border-radius: 5px;
-  background: #fff;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-  font-family: Arial, sans-serif;
-  color: #333;
-  page-break-inside: avoid; /* evita corte no meio */
-}
-
-/* Logo Holerite */
-.holerite-output .logo-pdf,
-.holerite-via .logo-pdf {
-  display: block;
-  margin: 0 auto 15px;
-  max-width: 120px;
-}
-
-/* Cabeçalho do Holerite */
-.holerite-output h2,
-.holerite-via h2 {
-  text-align: center;
-  color: #0d6efd;
-  font-size: 22px;
-  font-weight: 700;
-  margin-bottom: 20px;
-  letter-spacing: 1px;
-}
-
-/* Informações do Funcionário */
-.holerite-output .info-funcionario,
-.holerite-via .info-funcionario {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  background: #e7f0ff;
-  padding: 15px;
-  border-radius: 5px;
-  margin-bottom: 20px;
-}
-
-.holerite-output .info-funcionario p,
-.holerite-via .info-funcionario p {
-  margin: 5px 0;
-  font-size: 14px;
-}
-
-.holerite-output .info-funcionario strong,
-.holerite-via .info-funcionario strong {
-  color: #0d6efd;
-}
-
-/* Divisão Proventos e Descontos */
-.holerite-output .proventos-descontos,
-.holerite-via .proventos-descontos {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
-}
-
-/* Tabelas de valores */
-.holerite-output table,
-.holerite-via table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 16px;
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  overflow: hidden;
-}
-
-.holerite-output th,
-.holerite-output td,
-.holerite-via th,
-.holerite-via td {
-  padding: 8px 10px;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.holerite-output th,
-.holerite-via th {
-  background-color: #0d6efd;
-  color: #fff;
-  font-weight: 600;
-  font-size: 14px;
-  text-align: center;
-}
-
-.holerite-output td,
-.holerite-via td {
-  text-align: left;
-  font-size: 14px;
-}
-
-.holerite-output td:last-child,
-.holerite-via td:last-child {
-  text-align: right;
-}
-
-/* Totais */
-.holerite-output .totais,
-.holerite-via .totais {
-  padding: 15px 20px;
-  background: #d7e7ff;
-  border: 1px solid #0d6efd;
-  border-radius: 5px;
-}
-
-.holerite-output .total-item,
-.holerite-via .total-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 5px 0;
-  font-weight: 600;
-  border-bottom: none; /* removida linha tracejada */
-}
-
-.holerite-output .liquido,
-.holerite-via .liquido {
-  font-size: 18px;
-  text-align: center;
-  font-weight: 700;
-  color: #0d6efd;
-  padding: 10px 0;
-  margin-top: 20px; /* espaço extra no lugar da linha tracejada */
-  background: #cfe0ff;
-  border-radius: 5px;
-}
-
-/* Assinaturas */
-.holerite-via .assinatura {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 25px;
-  font-size: 14px;
-}
-
-.holerite-via .assinatura div {
-  width: 45%;
-  text-align: center;
-  border-top: 1px solid #333;
-  padding-top: 6px;
-  font-weight: 600;
-}
-
-/* =========================
-   Responsividade Mobile
-========================= */
-@media (max-width: 600px) {
+/* Responsivo: 2 colunas no desktop */
+@media (min-width: 768px) {
   .grid-form {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 
-  .holerite-output .info-funcionario,
-  .holerite-via .info-funcionario,
-  .holerite-output .proventos-descontos,
-  .holerite-via .proventos-descontos {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .holerite-output table th,
-  .holerite-output table td,
-  .holerite-via table th,
-  .holerite-via table td {
-    font-size: 12px;
-    padding: 6px 8px;
-  }
-
-  .holerite-output h2,
-  .holerite-via h2 {
-    font-size: 18px;
-  }
-
-  .holerite-output .totais,
-  .holerite-via .totais {
-    font-size: 12px;
-    padding: 10px;
-  }
-
-  .holerite-output .liquido,
-  .holerite-via .liquido {
-    font-size: 16px;
-    margin-top: 15px;
-  }
-
-  .holerite-via .assinatura {
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  .holerite-via .assinatura div {
-    width: 100%;
-  }
-}
-
-/* =========================
-   Estilo específico para PDF
-========================= */
-@media print {
-  body {
-    background: #fff;
-    padding: 0;
-  }
-  .container {
-    box-shadow: none;
-    border-radius: 0;
-    padding: 10px;
-  }
-  .holerite-output, .holerite-via {
-    margin: 0;
-    padding: 10px;
-    box-shadow: none;
-    border: 1px solid #000;
-  }
-  .holerite-output table th,
-  .holerite-output table td,
-  .holerite-via table th,
-  .holerite-via table td {
-    font-size: 10px;
-    padding: 4px 6px;
-  }
-  .holerite-output .liquido,
-  .holerite-via .liquido {
-    font-size: 14px;
-    margin-top: 10px;
-  }
-  .holerite-via .assinatura {
-    gap: 10px;
+  .form-buttons {
+    grid-column: span 2;
   }
 }
