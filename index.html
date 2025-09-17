@@ -28,7 +28,6 @@
     <form id="formMensal" class="tab-content active">
       <h2>Holerite Mensal</h2>
       <div class="formulario grid-form">
-
         <label for="nomeMensal">Nome:</label>
         <input type="text" id="nomeMensal" required>
 
@@ -50,32 +49,18 @@
         <label for="horasExtrasMensal">Horas Extras (R$):</label>
         <input type="number" id="horasExtrasMensal" step="0.01">
 
-        <div class="checkbox-group">
-          <input type="checkbox" id="adiantamentoMensal">
-          <label for="adiantamentoMensal">Adiantamento 40%</label>
-        </div>
-
+        <label><input type="checkbox" id="adiantamentoMensal"> Adiantamento 40%</label>
         <label for="adiantamentoValorMensal">Adiantamento Manual:</label>
         <input type="number" id="adiantamentoValorMensal" step="0.01">
 
-        <div class="checkbox-group">
-          <input type="checkbox" id="salarioFamiliaMensal">
-          <label for="salarioFamiliaMensal">Salário Família</label>
-        </div>
-
+        <label><input type="checkbox" id="salarioFamiliaMensal"> Salário Família</label>
         <label for="dependentesMensal">Dependentes:</label>
         <input type="number" id="dependentesMensal" value="0">
 
-        <div class="checkbox-group">
-          <input type="checkbox" id="vtMensal">
-          <label for="vtMensal">Vale Transporte (até 6%)</label>
-        </div>
+        <label><input type="checkbox" id="vtMensal"> Vale Transporte (até 6%)</label>
         <input type="number" id="vtValorMensal" step="0.01" placeholder="Custo total VT" disabled>
 
-        <div class="checkbox-group">
-          <input type="checkbox" id="vrMensal">
-          <label for="vrMensal">Vale Refeição</label>
-        </div>
+        <label><input type="checkbox" id="vrMensal"> Vale Refeição</label>
         <input type="number" id="vrValorMensal" step="0.01" placeholder="Valor VR" disabled>
 
         <label for="planoSaudeMensal">Plano de Saúde (R$):</label>
