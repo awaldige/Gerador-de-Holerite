@@ -148,6 +148,7 @@ button:hover {
   box-shadow: 0 5px 15px rgba(0,0,0,0.08);
   font-family: Arial, sans-serif;
   color: #333;
+  page-break-inside: avoid; /* evita corte no meio */
 }
 
 /* Logo Holerite */
@@ -257,7 +258,7 @@ button:hover {
   justify-content: space-between;
   padding: 5px 0;
   font-weight: 600;
-  border-bottom: 1px dashed #0d6efd;
+  border-bottom: none; /* removida linha tracejada */
 }
 
 .holerite-output .liquido,
@@ -267,17 +268,10 @@ button:hover {
   font-weight: 700;
   color: #0d6efd;
   padding: 10px 0;
-  margin-top: 10px;
+  margin-top: 20px; /* espaço extra no lugar da linha tracejada */
   background: #cfe0ff;
   border-radius: 5px;
 }
-
-/* Remove borda do último item */
-.holerite-via .totais .total-item:last-child {
-  border-bottom: none;
-}
-
-
 
 /* Assinaturas */
 .holerite-via .assinatura {
@@ -327,11 +321,13 @@ button:hover {
   .holerite-output .totais,
   .holerite-via .totais {
     font-size: 12px;
+    padding: 10px;
   }
 
   .holerite-output .liquido,
   .holerite-via .liquido {
     font-size: 16px;
+    margin-top: 15px;
   }
 
   .holerite-via .assinatura {
@@ -344,3 +340,38 @@ button:hover {
   }
 }
 
+/* =========================
+   Estilo específico para PDF
+========================= */
+@media print {
+  body {
+    background: #fff;
+    padding: 0;
+  }
+  .container {
+    box-shadow: none;
+    border-radius: 0;
+    padding: 10px;
+  }
+  .holerite-output, .holerite-via {
+    margin: 0;
+    padding: 10px;
+    box-shadow: none;
+    border: 1px solid #000;
+  }
+  .holerite-output table th,
+  .holerite-output table td,
+  .holerite-via table th,
+  .holerite-via table td {
+    font-size: 10px;
+    padding: 4px 6px;
+  }
+  .holerite-output .liquido,
+  .holerite-via .liquido {
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  .holerite-via .assinatura {
+    gap: 10px;
+  }
+}
