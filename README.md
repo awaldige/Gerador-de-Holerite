@@ -12,15 +12,14 @@ O sistema foi construído com **HTML, CSS e JavaScript puro**, oferecendo uma so
 ---
 
 ## 🖼️ Demonstração Visual
-![IMG_1247](https://github.com/user-attachments/assets/43577c84-637c-4335-80a9-4b5f0d017302)
-![IMG_1248](https://github.com/user-attachments/assets/52a10213-e6a0-4551-97b4-06113b6330f4)
-![IMG_1250](https://github.com/user-attachments/assets/7f0fae50-a4fa-43ad-a316-c8e934798335)
-![IMG_1251](https://github.com/user-attachments/assets/150eb1f8-7e85-4193-b450-f8408c57ee77)
-![IMG_1252](https://github.com/user-attachments/assets/2b45762e-8bc1-478a-a498-4f4dc058f046)
-![IMG_1253](https://github.com/user-attachments/assets/adbd21c9-c271-4a77-9e5b-8539b80dd1d9)
-![IMG_1254](https://github.com/user-attachments/assets/a3e95d32-d68f-4588-ad7c-0195e7288a83)
-![IMG_1255](https://github.com/user-attachments/assets/0f668b0d-fca9-4a1d-bbdc-bb45cfce6f71)
-
+![IMG_1247](https://github.com/user-attachments/assets/9a8d03a9-78ee-4bb1-8acc-412af4f98b72)
+![IMG_1248](https://github.com/user-attachments/assets/93bf0a92-f87d-400d-a115-30325c189852)
+![IMG_1249](https://github.com/user-attachments/assets/7e32ef5f-60fe-4dda-9b65-fa657ffb586b)
+![IMG_1251](https://github.com/user-attachments/assets/340f41f9-7aa0-4c5a-9327-b4c8a871ce64)
+![IMG_1250](https://github.com/user-attachments/assets/0524b093-e1b1-4ca5-9ed1-1a7001febbe1)
+![IMG_1252](https://github.com/user-attachments/assets/8fe45d0e-f6ab-408e-97b7-622a2bd98011)
+![IMG_1254](https://github.com/user-attachments/assets/05341d21-a500-477e-ba0a-b8afa8b1b4b7)
+![IMG_1253](https://github.com/user-attachments/assets/d1c287c1-272f-49b6-ad0d-98ba63ecebae)
 
 ---
 
