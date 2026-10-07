@@ -1,9 +1,8 @@
-# 📑 Gerador de Holerite — AW Tecnologia
+📑 Gerador de Holerite — AW Tecnologia
 
-Aplicação web desenvolvida para **geração automática de holerites**, permitindo cálculos trabalhistas essenciais e exportação em PDF.
+Aplicação web desenvolvida para geração e simulação de holerites, permitindo realizar cálculos trabalhistas e exportar demonstrativos de pagamento em PDF.
 
-O sistema foi construído com **HTML, CSS e JavaScript puro**, oferecendo uma solução leve, responsiva e de fácil utilização para simulação e emissão de demonstrativos de pagamento.
-
+O sistema foi desenvolvido com HTML, CSS e JavaScript puro, oferecendo uma solução leve, responsiva e de fácil utilização para geração de demonstrativos de pagamento.
 ---
 
 ## 🌐 Demonstração Online
@@ -23,95 +22,73 @@ O sistema foi construído com **HTML, CSS e JavaScript puro**, oferecendo uma so
 
 ---
 
-## 🧾 Visão Geral
+🧾 Visão Geral
 
 O sistema permite gerar:
 
-- Holerite mensal
-- Holerite de férias
-- Holerite de 13º salário
-- Segunda via do documento
-- Exportação em PDF pronta para impressão
-
-O layout apresenta:
-
-✔ Organização clara de proventos e descontos  
-✔ Destaque para valor líquido a receber  
-✔ Espaço para assinaturas  
-✔ Estrutura compatível com impressão e PDF  
-
----
-
-## ⚙️ Funcionalidades
-
-### 📄 Tipos de Holerite
-- Mensal
-- Férias
-- 13º salário
-
-### 🧮 Cálculos Automáticos
-- Cálculo de INSS
-- IRRF com dedução por dependentes
-- Vale Transporte (VT)
-- Vale Refeição (VR)
-- Adiantamentos
-- Plano de saúde
-- Seguro de vida
-- Contribuição negocial
-- Outros descontos personalizados
-
-### 📤 Recursos do Sistema
-- Exportação em PDF
-- Segunda via do holerite
-- Layout otimizado para impressão
-- Interface responsiva para desktop e mobile
-
----
-
-## 📂 Estrutura do Projeto
-
-js/
-README.md
-aw-tecnologia.png
-index.html
-style.css
-
-
----
-
-## 💻 Como Executar Localmente
-
-Clone o repositório:
-
-```bash
+Holerite mensal
+Holerite de férias
+Holerite de 13º salário
+Segunda via do documento
+Exportação em PDF pronta para impressão
+Layout
+✔ Organização clara de proventos e descontos
+✔ Destaque para o valor líquido a receber
+✔ Espaço para assinaturas
+✔ Estrutura compatível com impressão e PDF
+⚙️ Funcionalidades
+📄 Tipos de Holerite
+Mensal
+Férias
+13º salário
+🧮 Cálculos Automáticos
+Cálculo de INSS
+IRRF com dedução por dependentes
+Vale Transporte (VT)
+Vale Refeição (VR)
+Adiantamentos
+Plano de saúde
+Seguro de vida
+Contribuição negocial
+Outros descontos personalizados
+📤 Recursos do Sistema
+Exportação em PDF
+Segunda via do holerite
+Layout otimizado para impressão
+Interface responsiva para desktop e mobile
+📂 Estrutura do Projeto
+Gerador-de-Holerite/
+├── js/
+├── index.html
+├── style.css
+├── aw-tecnologia.png
+└── README.md
+💻 Como Executar Localmente
+1. Clone o repositório
 git clone https://github.com/awaldige/Gerador-de-Holerite.git
+2. Acesse a pasta
+cd Gerador-de-Holerite
+3. Execute o projeto
+
 Abra o arquivo index.html em qualquer navegador.
 
-Não é necessário backend ou servidor.
+Não é necessário backend ou servidor para executar a aplicação.
 
 🛠️ Tecnologias Utilizadas
 HTML5
-
 CSS3
-
 JavaScript (Vanilla)
-
-html2canvas — captura de tela
-
-jsPDF — geração de PDF
-
+html2canvas — captura e renderização do conteúdo para exportação
+jsPDF — geração dos documentos em PDF
 🧠 Destaques Técnicos
 Cálculos realizados totalmente no navegador
-
-Sem necessidade de backend
-
+Aplicação sem necessidade de backend
 Estrutura modular e fácil de manter
-
-Compatível com impressão e PDF
-
-Interface simples e intuitiva
-
+Compatibilidade com impressão e PDF
+Interface simples, responsiva e intuitiva
+Processamento dos dados diretamente no frontend
 🔮 Melhorias Futuras
+
 Histórico de holerites gerados
 
 Cadastro de funcionários
@@ -123,7 +100,9 @@ Backend para armazenamento seguro
 Integração com sistemas de folha de pagamento
 
 👨‍💻 Autor
+
 Desenvolvido por André Waldige
+
 🔗 GitHub: https://github.com/awaldige
 
 Projeto desenvolvido para fins de estudo e portfólio profissional.
