@@ -50,7 +50,7 @@ O layout apresenta:
 - 13º salário
 
 ### 🧮 Cálculos Automáticos
-- INSS atualizado
+- Cálculo de INSS
 - IRRF com dedução por dependentes
 - Vale Transporte (VT)
 - Vale Refeição (VR)
@@ -70,14 +70,11 @@ O layout apresenta:
 
 ## 📂 Estrutura do Projeto
 
-Gerador-de-Holerite/
-│
-├── index.html # Interface principal
-├── css/
-│ └── style.css # Estilos do sistema
-├── js/
-│ └── app.js # Lógica de cálculo e geração
-└── README.md # Documentação
+js/
+README.md
+aw-tecnologia.png
+index.html
+style.css
 
 
 ---
