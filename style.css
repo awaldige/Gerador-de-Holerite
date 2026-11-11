@@ -1,345 +1,1147 @@
+
+/* ========================================
+   AW TECHNOLOGY - GERADOR DE HOLERITE
+   Identidade visual profissional
+======================================== */
+
 /* =========================
-   Reset básico
+   VARIÁVEIS
 ========================= */
+
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --primary-light: #eff6ff;
+
+    --background: #f1f5f9;
+    --surface: #ffffff;
+
+    --dark: #101827;
+    --dark-soft: #1e293b;
+
+    --text: #334155;
+    --muted: #64748b;
+
+    --border: #e2e8f0;
+
+    --success: #059669;
+    --danger: #dc2626;
+
+    --radius: 14px;
+    --shadow: 0 8px 30px rgba(15, 23, 42, 0.07);
+}
+
+/* =========================
+   RESET
+========================= */
+
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
-  font-family: Arial, sans-serif;
-  background: #f4f6f8;
-  color: #333;
-  padding: 20px;
+    min-height: 100vh;
+    padding: 35px 18px;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(37, 99, 235, 0.09),
+            transparent 35%
+        ),
+        var(--background);
+
+    color: var(--text);
+    font-family: "Segoe UI", Arial, sans-serif;
+    line-height: 1.5;
 }
 
 /* =========================
-   Container principal
+   CONTAINER PRINCIPAL
 ========================= */
+
 .container {
-  width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
-  background: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 1050px;
+    margin: 0 auto;
+    padding: 35px;
+
+    background: var(--surface);
+
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    border-radius: 20px;
+
+    box-shadow: var(--shadow);
 }
 
 /* =========================
-   Logo
+   CABEÇALHO
 ========================= */
-.logo-container, .logo-holerite {
-  text-align: left;
-  margin-bottom: 15px;
+
+.app-header {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+
+    padding-bottom: 28px;
+
+    border-bottom: 1px solid var(--border);
 }
 
-.logo, .logo-pdf {
-  max-width: 120px;
-  height: auto;
+.logo-container {
+    flex-shrink: 0;
+}
+
+.logo {
+    display: block;
+
+    width: 115px;
+    max-width: 100%;
+    height: auto;
+
+    object-fit: contain;
+}
+
+.header-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.eyebrow {
+    display: inline-block;
+    margin-bottom: 5px;
+
+    color: var(--primary);
+
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+h1 {
+    color: var(--dark);
+
+    font-size: clamp(25px, 4vw, 34px);
+    font-weight: 800;
+    letter-spacing: -1px;
+    line-height: 1.2;
+}
+
+.header-content p {
+    margin-top: 7px;
+
+    color: var(--muted);
+    font-size: 14px;
 }
 
 /* =========================
-   Títulos
+   ABAS
 ========================= */
-h1, h2 {
-  text-align: center;
-  margin-bottom: 15px;
-  color: #0d6efd;
-}
 
-/* =========================
-   Formulários
-========================= */
-.grid-form {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
-}
+.tabs {
+    display: flex;
+    gap: 10px;
 
-label {
-  font-weight: bold;
-  margin-bottom: 5px;
-  display: block;
-}
+    margin: 28px 0;
+    padding: 7px;
 
-input[type="text"], input[type="number"], input[type="checkbox"] {
-  width: 100%;
-  padding: 8px 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
+    background: #f1f5f9;
 
-input[type="checkbox"] {
-  width: auto;
-  margin-right: 5px;
-}
-
-/* Botões */
-.form-buttons {
-  grid-column: span 2;
-  margin-top: 20px;
-  text-align: center;
-}
-
-button {
-  padding: 10px 25px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin: 5px;
-  font-weight: bold;
-  transition: 0.3s;
-}
-
-button:hover {
-  opacity: 0.9;
-}
-
-.btn-primario {
-  background-color: #0d6efd;
-  color: #fff;
-}
-
-.btn-secundario {
-  background-color: #6c757d;
-  color: #fff;
-}
-
-/* Tabs */
-.tab-buttons {
-  text-align: center;
-  margin-bottom: 20px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
 }
 
 .tab-button {
-  padding: 8px 20px;
-  border: none;
-  border-radius: 5px 5px 0 0;
-  cursor: pointer;
-  background-color: #e9ecef;
-  margin-right: 5px;
-  font-weight: bold;
+    flex: 1;
+    min-height: 45px;
+
+    padding: 11px 16px;
+
+    border: 0;
+    border-radius: 9px;
+
+    background: transparent;
+    color: var(--muted);
+
+    cursor: pointer;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.tab-button:hover {
+    background: #e2e8f0;
+    color: var(--dark);
 }
 
 .tab-button.active {
-  background-color: #0d6efd;
-  color: #fff;
+    background: var(--dark);
+    color: #ffffff;
+
+    box-shadow: 0 3px 10px rgba(15, 23, 42, 0.15);
 }
 
+/* =========================
+   CONTEÚDO DAS ABAS
+========================= */
+
 .tab-content {
-  display: none;
+    display: none;
+    animation: fadeIn 0.25s ease;
 }
 
 .tab-content.active {
-  display: block;
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* =========================
-   Holerite Moderno PDF
+   TÍTULOS DAS SEÇÕES
 ========================= */
-.holerite-output, .holerite-via {
-  margin-top: 20px;
-  padding: 20px;
-  border: 2px solid #0d6efd;
-  border-radius: 5px;
-  background: #fff;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-  font-family: Arial, sans-serif;
-  color: #333;
+
+.section-heading {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    margin-bottom: 25px;
 }
 
-/* Logo Holerite */
-.holerite-output .logo-pdf,
-.holerite-via .logo-pdf {
-  display: block;
-  margin: 0 auto 15px;
-  max-width: 120px;
+.section-number {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+
+    width: 43px;
+    height: 43px;
+
+    border-radius: 12px;
+
+    background: var(--primary-light);
+    color: var(--primary);
+
+    font-size: 15px;
+    font-weight: 800;
 }
 
-/* Cabeçalho do Holerite */
-.holerite-output h2,
-.holerite-via h2 {
-  text-align: center;
-  color: #0d6efd;
-  font-size: 22px;
-  font-weight: 700;
-  margin-bottom: 20px;
-  letter-spacing: 1px;
+.section-heading h2 {
+    color: var(--dark);
+
+    font-size: 21px;
+    font-weight: 750;
 }
 
-/* Informações do Funcionário */
-.holerite-output .info-funcionario,
-.holerite-via .info-funcionario {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  background: #e7f0ff;
-  padding: 15px;
-  border-radius: 5px;
-  margin-bottom: 20px;
+.section-heading p {
+    margin-top: 3px;
+
+    color: var(--muted);
+    font-size: 13px;
 }
 
-.holerite-output .info-funcionario p,
-.holerite-via .info-funcionario p {
-  margin: 5px 0;
-  font-size: 14px;
+/* =========================
+   FORMULÁRIOS
+========================= */
+
+.grid-form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
 }
 
-.holerite-output .info-funcionario strong,
-.holerite-via .info-funcionario strong {
-  color: #0d6efd;
+.field-group {
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+    gap: 7px;
 }
 
-/* Divisão Proventos e Descontos */
-.holerite-output .proventos-descontos,
-.holerite-via .proventos-descontos {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
+.field-group label {
+    color: var(--dark-soft);
+
+    font-size: 13px;
+    font-weight: 700;
 }
 
-/* Tabelas de valores */
-.holerite-output table,
+input[type="text"],
+input[type="number"],
+select {
+    width: 100%;
+    min-height: 45px;
+
+    padding: 11px 13px;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 9px;
+
+    outline: none;
+
+    background: #ffffff;
+    color: var(--dark);
+
+    font-family: inherit;
+    font-size: 14px;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+input::placeholder {
+    color: #94a3b8;
+}
+
+input:focus,
+select:focus {
+    border-color: var(--primary);
+
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+input:disabled {
+    background: #f1f5f9;
+    color: #94a3b8;
+    cursor: not-allowed;
+}
+
+select {
+    cursor: pointer;
+}
+
+/* =========================
+   CHECKBOXES
+========================= */
+
+.checkbox-field {
+    justify-content: center;
+    min-height: 65px;
+
+    padding: 12px 14px;
+
+    border: 1px solid var(--border);
+    border-radius: 9px;
+
+    background: #f8fafc;
+}
+
+.checkbox-field label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    cursor: pointer;
+
+    font-size: 13px;
+}
+
+input[type="checkbox"] {
+    width: 17px;
+    height: 17px;
+
+    flex-shrink: 0;
+
+    accent-color: var(--primary);
+    cursor: pointer;
+}
+
+.field-full {
+    grid-column: 1 / -1;
+}
+
+/* =========================
+   BOTÕES
+========================= */
+
+.form-buttons {
+    grid-column: 1 / -1;
+
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    margin-top: 12px;
+}
+
+button {
+    font-family: inherit;
+}
+
+.btn-primario,
+.btn-secundario {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 47px;
+    padding: 12px 25px;
+
+    border: none;
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+    font-weight: 750;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.btn-primario {
+    background: var(--primary);
+    color: #ffffff;
+
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+.btn-primario:hover {
+    transform: translateY(-2px);
+
+    background: var(--primary-dark);
+
+    box-shadow: 0 7px 16px rgba(37, 99, 235, 0.25);
+}
+
+.btn-secundario {
+    background: var(--dark);
+    color: #ffffff;
+}
+
+.btn-secundario:hover {
+    transform: translateY(-2px);
+    background: var(--dark-soft);
+}
+
+button:focus-visible {
+    outline: 3px solid rgba(37, 99, 235, 0.35);
+    outline-offset: 3px;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* =========================
+   ÁREA DE RESULTADO
+========================= */
+
+.holerite-output {
+    margin-top: 35px;
+    padding: 20px;
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+
+    background: #f8fafc;
+}
+
+.holerite-output.hidden,
+.hidden {
+    display: none !important;
+}
+
+.holerite-container-vias {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+
+    width: 100%;
+}
+
+/* =========================
+   ESTRUTURA DE CADA VIA
+========================= */
+
+.via-print,
+.holerite-via {
+    width: 100%;
+    min-width: 0;
+
+    padding: 25px;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+
+    background: #ffffff;
+    color: #1e293b;
+
+    font-family: Arial, sans-serif;
+
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+
+/* =========================
+   CABEÇALHO DO HOLERITE
+========================= */
+
+.holerite-cabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    padding-bottom: 18px;
+
+    border-bottom: 2px solid #2563eb;
+}
+
+.holerite-marca {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    min-width: 0;
+}
+
+.holerite-marca strong {
+    color: #1d4ed8;
+
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.holerite-marca span {
+    color: #64748b;
+    font-size: 10px;
+}
+
+.holerite-titulo {
+    text-align: right;
+}
+
+.holerite-titulo h2 {
+    margin: 0 0 5px;
+
+    color: #1d4ed8;
+
+    font-size: 16px;
+    line-height: 1.3;
+}
+
+.holerite-titulo span {
+    color: #475569;
+    font-size: 11px;
+}
+
+/* =========================
+   IDENTIFICAÇÃO
+========================= */
+
+.holerite-identificacao {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px 20px;
+
+    margin-top: 20px;
+    padding: 15px;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+
+    background: #f8fafc;
+}
+
+.holerite-identificacao > div {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+
+    min-width: 0;
+}
+
+.holerite-identificacao strong {
+    color: #64748b;
+
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.holerite-identificacao span {
+    overflow-wrap: anywhere;
+
+    color: #1e293b;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* =========================
+   TABELAS DE PROVENTOS
+   E DESCONTOS
+========================= */
+
+.holerite-tabelas {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+
+    margin-top: 22px;
+}
+
+.holerite-coluna {
+    min-width: 0;
+}
+
+.holerite-coluna h3 {
+    padding: 9px 10px;
+
+    border-radius: 6px;
+
+    background: #eff6ff;
+    color: #1e3a8a;
+
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.via-print table,
 .holerite-via table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 16px;
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  overflow: hidden;
+    width: 100%;
+    margin-top: 10px;
+
+    border-collapse: collapse;
+
+    background: #ffffff;
+
+    font-size: 12px;
 }
 
-.holerite-output th,
-.holerite-output td,
+.via-print th,
+.via-print td,
 .holerite-via th,
 .holerite-via td {
-  padding: 8px 10px;
-  border-bottom: 1px solid #e0e0e0;
+    padding: 9px 8px;
+
+    border-bottom: 1px solid #e2e8f0;
+
+    text-align: left;
+    vertical-align: middle;
 }
 
-.holerite-output th,
+.via-print th,
 .holerite-via th {
-  background-color: #0d6efd;
-  color: #fff;
-  font-weight: 600;
-  font-size: 14px;
-  text-align: center;
+    background: #f1f5f9;
+    color: #334155;
+
+    font-size: 11px;
+    font-weight: 700;
 }
 
-.holerite-output td,
-.holerite-via td {
-  text-align: left;
-  font-size: 14px;
+.via-print td:nth-child(n+2),
+.via-print th:nth-child(n+2),
+.holerite-via td:nth-child(n+2),
+.holerite-via th:nth-child(n+2) {
+    text-align: right;
 }
 
-.holerite-output td:last-child,
-.holerite-via td:last-child {
-  text-align: right;
+.via-print td:first-child,
+.holerite-via td:first-child {
+    overflow-wrap: anywhere;
 }
 
-/* Totais */
-.holerite-output .totais,
-.holerite-via .totais {
-  padding: 15px 20px;
-  background: #d7e7ff;
-  border: 1px solid #0d6efd;
-  border-radius: 5px;
+.valor-provento {
+    color: #059669;
+    font-weight: 700;
+    white-space: nowrap;
 }
 
-.holerite-output .total-item,
-.holerite-via .total-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 5px 0;
-  font-weight: 600;
-  border-bottom: 1px dashed #0d6efd;
-}
-
-.holerite-output .liquido,
-.holerite-via .liquido {
-  font-size: 18px;
-  text-align: center;
-  font-weight: 700;
-  color: #0d6efd;
-  padding: 10px 0;
-  margin-top: 10px;
-  background: #cfe0ff;
-  border-radius: 5px;
-}
-
-/* Remove borda do último item */
-.holerite-via .totais .total-item:last-child {
-  border-bottom: none;
-}
-
-
-
-/* Assinaturas */
-.holerite-via .assinatura {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 25px;
-  font-size: 14px;
-}
-
-.holerite-via .assinatura div {
-  width: 45%;
-  text-align: center;
-  border-top: 1px solid #333;
-  padding-top: 6px;
-  font-weight: 600;
+.valor-desconto {
+    color: #dc2626;
+    font-weight: 700;
+    white-space: nowrap;
 }
 
 /* =========================
-   Responsividade Mobile
+   RESUMO FINANCEIRO
 ========================= */
-@media (max-width: 600px) {
-  .grid-form {
-    grid-template-columns: 1fr;
-  }
 
-  .holerite-output .info-funcionario,
-  .holerite-via .info-funcionario,
-  .holerite-output .proventos-descontos,
-  .holerite-via .proventos-descontos {
+.holerite-resumo {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+
+    margin-top: 22px;
+    padding: 15px;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+
+    background: #f8fafc;
+}
+
+.holerite-resumo > div {
+    display: flex;
     flex-direction: column;
-    gap: 10px;
-  }
+    gap: 4px;
+}
 
-  .holerite-output table th,
-  .holerite-output table td,
-  .holerite-via table th,
-  .holerite-via table td {
+.holerite-resumo span {
+    color: #64748b;
+    font-size: 11px;
+}
+
+.holerite-resumo strong {
+    color: #1e293b;
+    font-size: 14px;
+}
+
+.holerite-resumo .holerite-liquido {
+    grid-column: 1 / -1;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    margin-top: 5px;
+    padding: 13px;
+
+    border-radius: 7px;
+
+    background: #1d4ed8;
+}
+
+.holerite-liquido span,
+.holerite-liquido strong {
+    color: #ffffff;
+}
+
+.holerite-liquido span {
     font-size: 12px;
-    padding: 6px 8px;
-  }
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
 
-  .holerite-output h2,
-  .holerite-via h2 {
-    font-size: 18px;
-  }
+.holerite-liquido strong {
+    font-size: 19px;
+}
 
-  .holerite-output .totais,
-  .holerite-via .totais {
+/* =========================
+   CAMPO DE ASSINATURA
+========================= */
+
+.holerite-assinatura {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 25px;
+
+    margin-top: 45px;
+    padding: 0 10px 10px;
+
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+
+.assinatura-linha {
+    flex: 1;
+    max-width: 65%;
+
+    padding-top: 8px;
+
+    border-top: 1px solid #333;
+
+    text-align: center;
+}
+
+.assinatura-linha span,
+.assinatura-data span {
+    color: #333;
+    font-size: 11px;
+}
+
+.assinatura-data {
+    padding-bottom: 2px;
+    white-space: nowrap;
+}
+
+/* Compatibilidade com a classe antiga, caso ainda exista no HTML. */
+
+.assinatura {
+    display: flex;
+    justify-content: space-between;
+    gap: 25px;
+
+    margin-top: 45px;
+}
+
+.assinatura div {
+    flex: 1;
+
+    padding-top: 8px;
+
+    border-top: 1px solid #64748b;
+
+    color: #334155;
     font-size: 12px;
-  }
+    text-align: center;
+}
 
-  .holerite-output .liquido,
-  .holerite-via .liquido {
-    font-size: 16px;
-  }
+/* =========================
+   OBSERVAÇÕES DO HOLERITE
+========================= */
 
-  .holerite-via .assinatura {
-    flex-direction: column;
-    gap: 15px;
-  }
+.holerite-observacao {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px 15px;
 
-  .holerite-via .assinatura div {
-    width: 100%;
-  }
+    margin-top: 20px;
+    padding-top: 12px;
+
+    border-top: 1px solid #e2e8f0;
+}
+
+.holerite-observacao p {
+    color: #64748b;
+    font-size: 10px;
+}
+
+.holerite-observacao span {
+    color: #64748b;
+    font-size: 10px;
+}
+
+/* =========================
+   BOTÃO DE EXPORTAÇÃO
+========================= */
+
+.export-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* =========================
+   RODAPÉ
+========================= */
+
+.app-footer {
+    margin-top: 35px;
+    padding-top: 22px;
+
+    border-top: 1px solid var(--border);
+
+    text-align: center;
+}
+
+.app-footer p {
+    color: var(--dark);
+    font-size: 13px;
+}
+
+.app-footer strong {
+    color: var(--primary);
+    letter-spacing: 0.5px;
+}
+
+.app-footer small {
+    display: block;
+
+    max-width: 650px;
+    margin: 8px auto 0;
+
+    color: var(--muted);
+
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+/* =========================
+   RESPONSIVIDADE
+========================= */
+
+@media (max-width: 700px) {
+
+    body {
+        padding: 18px 10px;
+    }
+
+    .container {
+        padding: 22px 16px;
+        border-radius: 15px;
+    }
+
+    .app-header {
+        gap: 14px;
+        padding-bottom: 22px;
+    }
+
+    .logo {
+        width: 85px;
+    }
+
+    .header-content p {
+        font-size: 12px;
+    }
+
+    .tabs {
+        gap: 5px;
+        margin: 22px 0;
+        padding: 5px;
+    }
+
+    .tab-button {
+        padding: 10px 5px;
+        font-size: 12px;
+    }
+
+    .grid-form {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .field-full {
+        grid-column: auto;
+    }
+
+    .section-heading h2 {
+        font-size: 18px;
+    }
+
+    .section-heading p {
+        font-size: 12px;
+    }
+
+    .form-buttons {
+        grid-column: 1;
+    }
+
+    .btn-primario,
+    .btn-secundario {
+        width: 100%;
+    }
+
+    .holerite-output {
+        padding: 10px;
+    }
+
+    .via-print,
+    .holerite-via {
+        padding: 13px;
+    }
+
+    .holerite-cabecalho {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .holerite-titulo {
+        width: 100%;
+        text-align: left;
+    }
+
+    .holerite-titulo h2 {
+        font-size: 15px;
+    }
+
+    .holerite-identificacao {
+        gap: 10px;
+        padding: 12px;
+    }
+
+    .holerite-tabelas {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .via-print table,
+    .holerite-via table {
+        font-size: 11px;
+    }
+
+    .via-print th,
+    .via-print td,
+    .holerite-via th,
+    .holerite-via td {
+        padding: 7px 5px;
+    }
+
+    .holerite-resumo {
+        padding: 12px;
+    }
+
+    .holerite-assinatura {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 25px;
+
+        margin-top: 35px;
+    }
+
+    .assinatura-linha {
+        max-width: 100%;
+    }
+
+    .assinatura-data {
+        text-align: center;
+    }
+
+    .holerite-observacao {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .assinatura {
+        flex-direction: column;
+        gap: 25px;
+    }
+}
+
+@media (max-width: 380px) {
+
+    .container {
+        padding: 18px 12px;
+    }
+
+    .logo {
+        width: 70px;
+    }
+
+    h1 {
+        font-size: 23px;
+    }
+
+    .tab-button {
+        font-size: 11px;
+    }
+
+    .holerite-resumo .holerite-liquido {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+/* =========================
+   IMPRESSÃO
+========================= */
+
+@media print {
+
+    @page {
+        size: A4 portrait;
+        margin: 12mm;
+    }
+
+    html,
+    body {
+        width: 100%;
+        min-height: auto;
+        padding: 0;
+
+        background: #ffffff !important;
+    }
+
+    .container {
+        width: 100%;
+        max-width: none;
+
+        margin: 0;
+        padding: 0;
+
+        border: none;
+        border-radius: 0;
+
+        box-shadow: none;
+    }
+
+    .app-header,
+    .tabs,
+    .tab-content,
+    .export-buttons,
+    .app-footer {
+        display: none !important;
+    }
+
+    #holeriteOutput {
+        display: block !important;
+
+        width: 100%;
+        margin: 0;
+        padding: 0;
+
+        border: none;
+        background: #ffffff !important;
+    }
+
+    .holerite-container-vias {
+        display: flex;
+        flex-direction: column;
+        gap: 10mm;
+    }
+
+    .via-print,
+    .holerite-via {
+        width: 100%;
+
+        padding: 8mm;
+
+        border: 1px solid #999;
+        border-radius: 0;
+
+        box-shadow: none;
+
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    .holerite-assinatura {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    .holerite-liquido {
+        background: #1d4ed8 !important;
+
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+
+    .holerite-liquido span,
+    .holerite-liquido strong {
+        color: #ffffff !important;
+    }
+
+    .holerite-coluna h3,
+    .via-print th,
+    .holerite-via th {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
 }
