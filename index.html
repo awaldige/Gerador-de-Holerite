@@ -1,141 +1,321 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gerador de Holerite Profissional</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#101827">
+    <meta name="description" content="Gerador demonstrativo de holerites mensais, férias e décimo terceiro salário. Desenvolvido pela AW TECHNOLOGY.">
 
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='80'%3E💵%3C/text%3E%3C/svg%3E">
+    <title>Gerador de Holerite | AW TECHNOLOGY</title>
 
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
-  <script src="js/app.js" defer></script>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='80'%3E💵%3C/text%3E%3C/svg%3E">
+
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
+    <script src="js/app.js" defer></script>
 </head>
+
 <body>
-  <div class="container">
-    <div class="logo-container">
-      <img src="aw-tecnologia.png" alt="Logo AW Tecnologia" class="logo">
-    </div>
-    <h1>Gerador de Holerite</h1>
 
-    <div class="tabs">
-      <button class="tab-button active" data-tab="mensal">Mensal</button>
-      <button class="tab-button" data-tab="ferias">Férias</button>
-      <button class="tab-button" data-tab="decimo">13º Salário</button>
-    </div>
+    <main class="container">
 
-    <form id="formMensal" class="tab-content active">
-      <h2>Holerite Mensal</h2>
-      <div class="formulario grid-form">
-        <label for="nomeMensal">Nome:</label>
-        <input type="text" id="nomeMensal" required>
+        <header class="app-header">
+            <div class="logo-container">
+                <img src="aw-tecnologia.png" alt="AW TECHNOLOGY" class="logo">
+            </div>
 
-        <label for="cargoMensal">Cargo:</label>
-        <input type="text" id="cargoMensal" required>
+            <div class="header-content">
+                <span class="eyebrow">AW TECHNOLOGY</span>
+                <h1>Gerador de Holerite</h1>
+                <p>Simulação e emissão de demonstrativos de pagamento</p>
+            </div>
+        </header>
 
-        <label for="empresaMensal">Empresa:</label>
-        <input type="text" id="empresaMensal" required>
+        <nav class="tabs" aria-label="Modalidades de holerite">
+            <button type="button" class="tab-button active" data-tab="mensal">
+                Mensal
+            </button>
 
-        <label for="mesMensal">Mês:</label>
-        <input type="number" id="mesMensal" min="1" max="12" required>
+            <button type="button" class="tab-button" data-tab="ferias">
+                Férias
+            </button>
 
-        <label for="anoMensal">Ano:</label>
-        <input type="number" id="anoMensal" required>
+            <button type="button" class="tab-button" data-tab="decimo">
+                13º Salário
+            </button>
+        </nav>
 
-        <label for="salarioMensal">Salário Base (R$):</label>
-        <input type="number" id="salarioMensal" step="0.01" required>
+        <!-- HOLERITE MENSAL -->
+        <form id="formMensal" class="tab-content active">
 
-        <label for="horasExtrasMensal">Horas Extras (R$):</label>
-        <input type="number" id="horasExtrasMensal" step="0.01">
+            <div class="section-heading">
+                <span class="section-number">01</span>
+                <div>
+                    <h2>Holerite Mensal</h2>
+                    <p>Informe os dados do funcionário e da remuneração.</p>
+                </div>
+            </div>
 
-        <label><input type="checkbox" id="adiantamentoMensal"> Adiantamento 40%</label>
-        <label for="adiantamentoValorMensal">Adiantamento Manual:</label>
-        <input type="number" id="adiantamentoValorMensal" step="0.01">
+            <div class="formulario grid-form">
 
-        <label><input type="checkbox" id="salarioFamiliaMensal"> Salário Família</label>
-        <label for="dependentesMensal">Dependentes:</label>
-        <input type="number" id="dependentesMensal" value="0">
+                <div class="field-group">
+                    <label for="nomeMensal">Nome do funcionário</label>
+                    <input type="text" id="nomeMensal" placeholder="Nome completo" required>
+                </div>
 
-        <label><input type="checkbox" id="vtMensal"> Vale Transporte (até 6%)</label>
-        <input type="number" id="vtValorMensal" step="0.01" placeholder="Custo total VT" disabled>
+                <div class="field-group">
+                    <label for="cargoMensal">Cargo</label>
+                    <input type="text" id="cargoMensal" placeholder="Cargo do funcionário" required>
+                </div>
 
-        <label><input type="checkbox" id="vrMensal"> Vale Refeição</label>
-        <input type="number" id="vrValorMensal" step="0.01" placeholder="Valor VR" disabled>
+                <div class="field-group">
+                    <label for="empresaMensal">Empresa</label>
+                    <input type="text" id="empresaMensal" placeholder="Nome da empresa" required>
+                </div>
 
-        <label for="planoSaudeMensal">Plano de Saúde (R$):</label>
-        <input type="number" id="planoSaudeMensal" step="0.01">
+                <div class="field-group">
+                    <label for="mesMensal">Mês de referência</label>
+                    <input type="number" id="mesMensal" min="1" max="12" placeholder="Ex.: 11" required>
+                </div>
 
-        <label for="seguroVidaMensal">Seguro de Vida (R$):</label>
-        <input type="number" id="seguroVidaMensal" step="0.01">
+                <div class="field-group">
+                    <label for="anoMensal">Ano</label>
+                    <input type="number" id="anoMensal" min="2020" max="2100" placeholder="2026" required>
+                </div>
 
-        <label for="contribuicaoMensal">Contribuição Negocial (R$):</label>
-        <input type="number" id="contribuicaoMensal" step="0.01">
+                <div class="field-group">
+                    <label for="salarioMensal">Salário base (R$)</label>
+                    <input type="number" id="salarioMensal" min="0.01" step="0.01" placeholder="Ex.: 3500,00" required>
+                </div>
 
-        <div class="form-buttons">
-          <button type="submit" class="btn-primario">Gerar Holerite</button>
+                <div class="field-group">
+                    <label for="horasExtrasMensal">Horas extras (R$)</label>
+                    <input type="number" id="horasExtrasMensal" min="0" step="0.01" value="0">
+                </div>
+
+                <div class="field-group checkbox-field">
+                    <label for="adiantamentoMensal">
+                        <input type="checkbox" id="adiantamentoMensal">
+                        Adiantamento de 40% do salário
+                    </label>
+                </div>
+
+                <div class="field-group">
+                    <label for="adiantamentoValorMensal">Adiantamento manual (R$)</label>
+                    <input type="number" id="adiantamentoValorMensal" min="0" step="0.01" placeholder="Valor manual" disabled>
+                </div>
+
+                <div class="field-group checkbox-field">
+                    <label for="salarioFamiliaMensal">
+                        <input type="checkbox" id="salarioFamiliaMensal">
+                        Incluir salário-família
+                    </label>
+                </div>
+
+                <div class="field-group">
+                    <label for="dependentesMensal">Dependentes</label>
+                    <input type="number" id="dependentesMensal" min="0" max="20" value="0">
+                </div>
+
+                <div class="field-group checkbox-field">
+                    <label for="vtMensal">
+                        <input type="checkbox" id="vtMensal">
+                        Descontar vale-transporte
+                    </label>
+                </div>
+
+                <div class="field-group">
+                    <label for="vtValorMensal">Custo total do vale-transporte (R$)</label>
+                    <input type="number" id="vtValorMensal" min="0" step="0.01" placeholder="Valor do benefício" disabled>
+                </div>
+
+                <div class="field-group checkbox-field">
+                    <label for="vrMensal">
+                        <input type="checkbox" id="vrMensal">
+                        Descontar vale-refeição
+                    </label>
+                </div>
+
+                <div class="field-group">
+                    <label for="vrValorMensal">Valor do vale-refeição (R$)</label>
+                    <input type="number" id="vrValorMensal" min="0" step="0.01" placeholder="Valor do benefício" disabled>
+                </div>
+
+                <div class="field-group">
+                    <label for="planoSaudeMensal">Plano de saúde (R$)</label>
+                    <input type="number" id="planoSaudeMensal" min="0" step="0.01" value="0">
+                </div>
+
+                <div class="field-group">
+                    <label for="seguroVidaMensal">Seguro de vida (R$)</label>
+                    <input type="number" id="seguroVidaMensal" min="0" step="0.01" value="0">
+                </div>
+
+                <div class="field-group">
+                    <label for="contribuicaoMensal">Contribuição negocial (R$)</label>
+                    <input type="number" id="contribuicaoMensal" min="0" step="0.01" value="0">
+                </div>
+
+                <div class="form-buttons">
+                    <button type="submit" class="btn-primario">
+                        Gerar holerite mensal
+                    </button>
+
+                    <button type="reset" class="btn-secundario btn-limpar">
+                        Limpar formulário
+                    </button>
+                </div>
+
+            </div>
+        </form>
+
+        <!-- HOLERITE DE FÉRIAS -->
+        <form id="formFerias" class="tab-content">
+
+            <div class="section-heading">
+                <span class="section-number">02</span>
+                <div>
+                    <h2>Holerite de Férias</h2>
+                    <p>Simule a remuneração e o adicional constitucional de férias.</p>
+                </div>
+            </div>
+
+            <div class="formulario grid-form">
+
+                <div class="field-group">
+                    <label for="nomeFerias">Nome do funcionário</label>
+                    <input type="text" id="nomeFerias" placeholder="Nome completo" required>
+                </div>
+
+                <div class="field-group">
+                    <label for="cargoFerias">Cargo</label>
+                    <input type="text" id="cargoFerias" placeholder="Cargo do funcionário" required>
+                </div>
+
+                <div class="field-group">
+                    <label for="empresaFerias">Empresa</label>
+                    <input type="text" id="empresaFerias" placeholder="Nome da empresa" required>
+                </div>
+
+                <div class="field-group">
+                    <label for="mesFerias">Mês de referência</label>
+                    <input type="number" id="mesFerias" min="1" max="12" placeholder="Ex.: 11" required>
+                </div>
+
+                <div class="field-group">
+                    <label for="anoFerias">Ano</label>
+                    <input type="number" id="anoFerias" min="2020" max="2100" placeholder="2026" required>
+                </div>
+
+                <div class="field-group">
+                    <label for="salarioFerias">Salário base (R$)</label>
+                    <input type="number" id="salarioFerias" min="0.01" step="0.01" placeholder="Ex.: 3500,00" required>
+                </div>
+
+                <div class="field-group">
+                    <label for="diasFerias">Dias de férias</label>
+                    <input type="number" id="diasFerias" min="1" max="30" value="30" required>
+                </div>
+
+                <div class="form-buttons">
+                    <button type="submit" class="btn-primario">
+                        Gerar holerite de férias
+                    </button>
+
+                    <button type="reset" class="btn-secundario btn-limpar">
+                        Limpar formulário
+                    </button>
+                </div>
+
+            </div>
+        </form>
+
+        <!-- DÉCIMO TERCEIRO -->
+        <form id="formDecimo" class="tab-content">
+
+            <div class="section-heading">
+                <span class="section-number">03</span>
+                <div>
+                    <h2>13º Salário</h2>
+                    <p>Simule as parcelas ou o valor integral do décimo terceiro.</p>
+                </div>
+            </div>
+
+            <div class="formulario grid-form">
+
+                <div class="field-group">
+                    <label for="nomeDecimo">Nome do funcionário</label>
+                    <input type="text" id="nomeDecimo" placeholder="Nome completo" required>
+                </div>
+
+                <div class="field-group">
+                    <label for="cargoDecimo">Cargo</label>
+                    <input type="text" id="cargoDecimo" placeholder="Cargo do funcionário" required>
+                </div>
+
+                <div class="field-group">
+                    <label for="empresaDecimo">Empresa</label>
+                    <input type="text" id="empresaDecimo" placeholder="Nome da empresa" required>
+                </div>
+
+                <div class="field-group">
+                    <label for="anoDecimo">Ano de referência</label>
+                    <input type="number" id="anoDecimo" min="2020" max="2100" placeholder="2026" required>
+                </div>
+
+                <div class="field-group">
+                    <label for="salarioDecimo">Salário base (R$)</label>
+                    <input type="number" id="salarioDecimo" min="0.01" step="0.01" placeholder="Ex.: 3500,00" required>
+                </div>
+
+                <div class="field-group">
+                    <label for="mesesDecimo">Meses trabalhados no ano</label>
+                    <input type="number" id="mesesDecimo" min="1" max="12" value="12" required>
+                </div>
+
+                <div class="field-group field-full">
+                    <label for="parcelaDecimo">Modalidade de cálculo</label>
+                    <select id="parcelaDecimo" required>
+                        <option value="integral">13º integral estimado</option>
+                        <option value="primeira">Primeira parcela</option>
+                        <option value="segunda">Segunda parcela</option>
+                    </select>
+                </div>
+
+                <div class="form-buttons">
+                    <button type="submit" class="btn-primario">
+                        Gerar 13º salário
+                    </button>
+
+                    <button type="reset" class="btn-secundario btn-limpar">
+                        Limpar formulário
+                    </button>
+                </div>
+
+            </div>
+        </form>
+
+        <!-- RESULTADO -->
+        <section id="holeriteOutput" class="holerite-output hidden" aria-live="polite"></section>
+
+        <div class="form-buttons export-buttons">
+            <button type="button" id="btnExportarPDF" class="btn-secundario hidden">
+                Exportar PDF
+            </button>
         </div>
-      </div>
-    </form>
 
-    <form id="formFerias" class="tab-content">
-      <h2>Holerite de Férias</h2>
-      <div class="formulario grid-form">
-        <label for="nomeFerias">Nome:</label>
-        <input type="text" id="nomeFerias" required>
+        <footer class="app-footer">
+            <p>Desenvolvido por <strong>AW TECHNOLOGY</strong></p>
+            <small>Simulador demonstrativo. Os resultados devem ser conferidos por um profissional de departamento pessoal ou contabilidade.</small>
+        </footer>
 
-        <label for="cargoFerias">Cargo:</label>
-        <input type="text" id="cargoFerias" required>
+    </main>
 
-        <label for="empresaFerias">Empresa:</label>
-        <input type="text" id="empresaFerias" required>
-
-        <label for="mesFerias">Mês:</label>
-        <input type="number" id="mesFerias" required>
-
-        <label for="anoFerias">Ano:</label>
-        <input type="number" id="anoFerias" required>
-
-        <label for="salarioFerias">Salário Base (R$):</label>
-        <input type="number" id="salarioFerias" step="0.01" required>
-
-        <p>1/3 Constitucional será calculado automaticamente.</p>
-
-        <div class="form-buttons">
-          <button type="submit" class="btn-primario">Gerar Holerite de Férias</button>
-        </div>
-      </div>
-    </form>
-
-    <form id="formDecimo" class="tab-content">
-      <h2>13º Salário</h2>
-      <div class="formulario grid-form">
-        <label for="nomeDecimo">Nome:</label>
-        <input type="text" id="nomeDecimo" required>
-
-        <label for="cargoDecimo">Cargo:</label>
-        <input type="text" id="cargoDecimo" required>
-
-        <label for="empresaDecimo">Empresa:</label>
-        <input type="text" id="empresaDecimo" required>
-
-        <label for="anoDecimo">Ano:</label>
-        <input type="number" id="anoDecimo" required>
-
-        <label for="salarioDecimo">Salário Base (R$):</label>
-        <input type="number" id="salarioDecimo" step="0.01" required>
-
-        <div class="form-buttons">
-          <button type="submit" class="btn-primario">Gerar 13º</button>
-        </div>
-      </div>
-    </form>
-
-    <div id="holeriteOutput" class="holerite-output hidden"></div>
-    <div class="form-buttons">
-      <button type="button" id="btnExportarPDF" class="btn-secundario hidden">Exportar PDF</button>
-    </div>
-  </div>
 </body>
 </html>
